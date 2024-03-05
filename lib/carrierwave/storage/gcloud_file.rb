@@ -48,7 +48,7 @@ module CarrierWave
         elements.last if elements.size > 1
       end
 
-      def filename(options = {})
+      def filename(**options)
         CarrierWave::Support::UriFilename.filename(file.url)
       end
 
@@ -81,11 +81,11 @@ module CarrierWave
         )
       end
 
-      def url(options = {})
-        uploader.gcloud_bucket_is_public ? public_url : authenticated_url(options)
+      def url()
+        uploader.gcloud_bucket_is_public ? public_url : authenticated_url({})
       end
 
-      def authenticated_url(options = {})
+      def authenticated_url(options)
         if uploader.gcloud_authenticated_url_expiration
           options = { expires: uploader.gcloud_authenticated_url_expiration }.merge(options)
         end
